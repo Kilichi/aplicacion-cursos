@@ -1,0 +1,32 @@
+<%-include("partials/header")%> 
+    <h1>Listado de Comentarios</h1>
+
+    <a href="/comentarios/new" class="btn-primary">+ Nuevo Comentario</a>
+
+    <table>
+        <thead>
+            <tr>                
+                <th>Usuario</th>
+                <th>Opinion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% comentarios.forEach(c => { %>
+                <tr>                    
+                    <td><%= c.usuario %></td>
+                    <td><%= c.opinion %></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a href="/comentarios/<%= c.id %>">SHOW</a>
+                            <a href="/comentarios/<%= c.id %>/edit">EDIT</a>
+                            <form action="/comentarios/<%= c.id %>?_method=DELETE" method="POST">
+                                <button>DELETE</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<%-include("partials/footer")%> 
