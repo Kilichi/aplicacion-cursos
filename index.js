@@ -14,6 +14,7 @@ const formatos = require("./utils/formatos")
 
 //Rutas de cada módulo
 const courseRoutes = require("./routes/course.routes")
+const userRoutes = require("./routes/user.routes")
 
 //Configuración del motor de vistas EJS (SSR)
 app.set("views", path.join(__dirname, "views"))
@@ -50,6 +51,7 @@ app.get("/", (req, res) => {
 })
 //Propias del REST (MVC)
 app.use("/cursos", courseRoutes)
+app.use("/usuarios", userRoutes)
 
 //Rutas por defecto (cualquier ruta que no exista)
 app.use((req, res) => {

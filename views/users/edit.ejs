@@ -1,0 +1,51 @@
+<%- include("../partials/header") %>
+    <div>
+        <div>
+            <h1>Editar Usuario</h1>
+            <span><%= usuario._id %></span>
+        </div>
+        <% if (error) { %>
+            <p class="alerta-error" role="alert"><%= error %></p>
+        <% } %>
+        <!-- Formulario POST con ?_method=PATCH (method-override) -->
+        <form action="/usuarios/<%= usuario._id %>?_method=PATCH" method="POST">
+            <div>
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" name="dni" value="<%= usuario.dni %>" placeholder="12345678Z" pattern="[0-9]{8}[A-Za-z]" maxlength="9" required>
+            </div>
+            <div>
+                <label for="firstName">Nombre</label>
+                <input type="text" id="firstName" name="firstName" value="<%= usuario.firstName %>" placeholder="Nombre..." required>
+            </div>
+            <div>
+                <label for="lastName">Apellidos</label>
+                <input type="text" id="lastName" name="lastName" value="<%= usuario.lastName %>" placeholder="Apellidos..." required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<%= usuario.email %>" placeholder="correo@ejemplo.com" required>
+            </div>
+            <div>
+                <label for="phone">Teléfono</label>
+                <input type="tel" id="phone" name="phone" value="<%= usuario.phone %>" placeholder="600123456" required>
+            </div>
+            <div>
+                <label for="birthDate">Fecha de nacimiento</label>
+                <input type="date" id="birthDate" name="birthDate" value="<%= fechaInput(usuario.birthDate) %>" required>
+            </div>
+            <div>
+                <label for="profile">Perfil</label>
+                <select id="profile" name="profile" required>
+                    <% for (let p of perfiles) { %>
+                        <option value="<%= p %>" <%= usuario.profile === p ? "selected" : "" %>><%= p %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Guardar</button>
+                <a href="/usuarios/<%= usuario._id %>" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+<%- include("../partials/footer") %>
