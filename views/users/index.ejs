@@ -1,0 +1,45 @@
+<%- include("../partials/header") %>
+    <h1>Listado de Usuarios</h1>
+
+    <a href="/usuarios/new" class="btn-primary">+ Nuevo Usuario</a>
+
+    <% if (usuarios.length === 0) { %>
+        <p class="vacio">No hay usuarios todavía. Ejecuta <code>npm run seed</code> o crea uno nuevo.</p>
+    <% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Perfil</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% usuarios.forEach(u => { %>
+                <tr>
+                    <td>
+                        <%= u.lastName %>, <%= u.firstName %>
+                        <small><%= u.dni %></small>
+                    </td>
+                    <td><%= u.email %></td>
+                    <td><%= u.phone %></td>
+                    <td><span class="badge"><%= u.profile %></span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a href="/usuarios/<%= u.id %>" aria-label="Ver <%= u.fullName %>">SHOW</a>
+                            <a href="/usuarios/<%= u.id %>/edit" aria-label="Editar <%= u.fullName %>">EDIT</a>
+                            <!-- Formulario POST con ?_method=DELETE (method-override) -->
+                            <form action="/usuarios/<%= u.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este usuario?')">
+                                <button aria-label="Eliminar <%= u.fullName %>">DELETE</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+
+<%- include("../partials/footer") %>

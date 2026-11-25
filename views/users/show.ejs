@@ -1,0 +1,38 @@
+<%- include("../partials/header") %>
+    <div>
+        <div>
+            <h1>Detalle del Usuario</h1>
+            <span><%= usuario.id %></span>
+        </div>
+        <div>
+            <div>DNI</div>
+            <div><%= usuario.dni %></div>
+        </div>
+        <div>
+            <div>Nombre completo</div>
+            <div><%= usuario.fullName %></div>
+        </div>
+        <div>
+            <div>Perfil</div>
+            <div><%= usuario.profile %></div>
+        </div>
+        <div>
+            <div>Email</div>
+            <div><%= usuario.email %></div>
+        </div>
+        <div>
+            <div>Teléfono</div>
+            <div><%= usuario.phone %></div>
+        </div>
+        <div>
+            <div>Fecha de nacimiento</div>
+            <div><%= formatearFecha(usuario.birthDate) %></div>
+        </div>
+        <div>
+            <div>Creado / Actualizado</div>
+            <div><%= formatearFecha(usuario.createdAt) %> / <%= formatearFecha(usuario.updatedAt) %></div>
+        </div>
+        <a href="/usuarios/<%= usuario.id %>/edit">Editar</a>
+        <a href="/usuarios">Volver al Listado</a>
+    </div>
+<%- include("../partials/footer") %>
