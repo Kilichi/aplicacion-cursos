@@ -1,0 +1,59 @@
+<%- include("../partials/header") %>
+    <div>
+        <div>
+            <h1>Nueva Matrícula</h1>
+            <span>Alta nueva</span>
+        </div>
+        <!-- Error de la restricción 1:N (el usuario ya tiene una matrícula activa) -->
+        <% if (error) { %>
+            <p class="alerta-error" role="alert"><%= error %></p>
+        <% } %>
+        <form action="/matriculas" method="POST">
+            <div>
+                <label for="userId">Usuario</label>
+                <!-- Mostramos nombre y DNI, pero enviamos el _id (ObjectId) -->
+                <select id="userId" name="userId" required>
+                    <option value="">-- Selecciona un usuario --</option>
+                    <% for (let u of usuarios) { %>
+                        <option value="<%= u._id %>" <%= String(matricula.userId) === String(u._id) ? "selected" : "" %>>
+                            <%= u.lastName %>, <%= u.firstName %> (<%= u.dni %> - <%= u.profile %>)
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="courseId">Curso</label>
+                <select id="courseId" name="courseId" required>
+                    <option value="">-- Selecciona un curso --</option>
+                    <% for (let c of cursos) { %>
+                        <option value="<%= c._id %>" <%= String(matricula.courseId) === String(c._id) ? "selected" : "" %>>
+                            <%= c.title %> (<%= formatearFecha(c.startDate) %> - <%= formatearFecha(c.endDate) %>)
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="enrollmentDate">Fecha de matrícula</label>
+                <input type="date" id="enrollmentDate" name="enrollmentDate" value="<%= fechaInput(matricula.enrollmentDate) %>" required>
+            </div>
+            <div>
+                <label for="status">Estado</label>
+                <select id="status" name="status" required>
+                    <% for (let e of estados) { %>
+                        <option value="<%= e %>" <%= (matricula.status || "pendiente") === e ? "selected" : "" %>><%= e %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="notes">Notas</label>
+                <textarea id="notes" name="notes" placeholder="Observaciones (opcional)..." rows="3"><%= matricula.notes || '' %></textarea>
+            </div>
+
+            <!-- Contenedor para los dos botones alineados -->
+            <div class="button-group">
+                <button type="submit">Guardar</button>
+                <a href="/matriculas" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+<%- include("../partials/footer") %>

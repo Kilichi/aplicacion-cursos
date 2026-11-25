@@ -599,3 +599,20 @@ footer {
         gap: 10px;
     }
 }
+
+/* ==========================================
+   Matrículas: enlaces de texto dentro de la tabla (alumno / curso)
+   ========================================== */
+table td a.enlace-texto {
+    background-color: transparent;
+    color: var(--primary);
+    padding: 0;
+    font-weight: 600;
+    display: inline;
+}
+
+table td a.enlace-texto:hover,
+table td a.enlace-texto:focus-visible {
+    background-color: transparent;
+    text-decoration: underline;
+}
