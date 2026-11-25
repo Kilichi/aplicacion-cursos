@@ -61,7 +61,9 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
     console.log(`Error en ${req.method} ${req.originalUrl}. Desc: ${err.message}`)
     res.locals.tituloEJS = "Error"
-    res.status(500).render("error.ejs", { msg: formatos.mensajeError(err) })
+    //CastError --> el ID de la URL no tiene formato ObjectId (400 Bad Request)
+    const estado = err.name === "CastError" ? 400 : 500
+    res.status(estado).render("error.ejs", { msg: formatos.mensajeError(err) })
 })
 
 //Levantar el server
