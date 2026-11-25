@@ -1,0 +1,62 @@
+<%- include("../partials/header") %>
+<%
+    //Si la matrícula viene de la BBDD, courseId y userId están POPULADOS (son objetos);
+    //si viene del formulario tras un error, son strings. Sacamos el id en ambos casos
+    const idDe = (ref) => ref && ref._id ? String(ref._id) : String(ref || "")
+    const cursoSel = idDe(matricula.courseId)
+    const usuarioSel = idDe(matricula.userId)
+%>
+    <div>
+        <div>
+            <h1>Editar Matrícula</h1>
+            <span><%= matricula._id %></span>
+        </div>
+        <% if (error) { %>
+            <p class="alerta-error" role="alert"><%= error %></p>
+        <% } %>
+        <!-- Formulario POST con ?_method=PATCH (method-override) -->
+        <form action="/matriculas/<%= matricula._id %>?_method=PATCH" method="POST">
+            <div>
+                <label for="userId">Usuario</label>
+                <select id="userId" name="userId" required>
+                    <% for (let u of usuarios) { %>
+                        <option value="<%= u._id %>" <%= usuarioSel === String(u._id) ? "selected" : "" %>>
+                            <%= u.lastName %>, <%= u.firstName %> (<%= u.dni %> - <%= u.profile %>)
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="courseId">Curso</label>
+                <select id="courseId" name="courseId" required>
+                    <% for (let c of cursos) { %>
+                        <option value="<%= c._id %>" <%= cursoSel === String(c._id) ? "selected" : "" %>>
+                            <%= c.title %> (<%= formatearFecha(c.startDate) %> - <%= formatearFecha(c.endDate) %>)
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="enrollmentDate">Fecha de matrícula</label>
+                <input type="date" id="enrollmentDate" name="enrollmentDate" value="<%= fechaInput(matricula.enrollmentDate) %>" required>
+            </div>
+            <div>
+                <label for="status">Estado</label>
+                <select id="status" name="status" required>
+                    <% for (let e of estados) { %>
+                        <option value="<%= e %>" <%= matricula.status === e ? "selected" : "" %>><%= e %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="notes">Notas</label>
+                <textarea id="notes" name="notes" placeholder="Observaciones (opcional)..." rows="3"><%= matricula.notes || '' %></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Guardar</button>
+                <a href="/matriculas" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+<%- include("../partials/footer") %>

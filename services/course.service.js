@@ -1,4 +1,5 @@
 const Course = require("../models/course.model")
+const Enrollment = require("../models/enrollment.model")
 
 //Comprueba que la fecha de fin sea posterior a la de inicio.
 //En el modelo ya hay un validador, pero en findByIdAndUpdate "this" no es el documento,
@@ -36,5 +37,10 @@ exports.update = async (id, datos) => {
 //Eliminar un curso
 //DELETE FROM Courses WHERE _id = ObjectId(id)
 exports.remove = async (id) => {
+    //Integridad referencial: no se puede borrar un curso que tiene matrículas
+    const matriculas = await Enrollment.countDocuments({ courseId: id })
+    if (matriculas > 0) {
+        throw new Error(`No se puede eliminar el curso: tiene ${matriculas} matrícula(s). Elimínalas primero.`)
+    }
     return await Course.findByIdAndDelete(id)
 }
