@@ -1,4 +1,5 @@
 const User = require("../models/user.model")
+const Enrollment = require("../models/enrollment.model")
 
 //Devolver todos los usuarios ordenados por apellidos
 //SELECT * FROM Users ORDER BY lastName, firstName
@@ -29,5 +30,10 @@ exports.update = async (id, datos) => {
 //Eliminar un usuario
 //DELETE FROM Users WHERE _id = ObjectId(id)
 exports.remove = async (id) => {
+    //Integridad referencial: no se puede borrar un usuario que tiene matrículas
+    const matriculas = await Enrollment.countDocuments({ userId: id })
+    if (matriculas > 0) {
+        throw new Error(`No se puede eliminar el usuario: tiene ${matriculas} matrícula(s). Elimínalas primero.`)
+    }
     return await User.findByIdAndDelete(id)
 }
