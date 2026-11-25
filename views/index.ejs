@@ -1,0 +1,20 @@
+<%- include("partials/header") %>
+    <!-- Página de inicio con acceso a los tres módulos de la academia -->
+    <h1>Gestor de Cursos</h1>
+    <p class="subtitulo">Elige un apartado para empezar</p>
+
+    <section class="tarjetas">
+        <a href="/cursos" class="tarjeta">
+            <strong>Cursos</strong>
+            <span>Listar, crear, editar y eliminar cursos</span>
+        </a>
+        <a href="/usuarios" class="tarjeta">
+            <strong>Usuarios</strong>
+            <span>Alumnos, profesores y administradores</span>
+        </a>
+        <a href="/matriculas" class="tarjeta">
+            <strong>Matrículas</strong>
+            <span>Matricular usuarios en cursos</span>
+        </a>
+    </section>
+<%- include("partials/footer") %>

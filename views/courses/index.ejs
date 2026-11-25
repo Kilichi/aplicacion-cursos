@@ -1,0 +1,45 @@
+<%- include("../partials/header") %>
+    <h1>Listado de Cursos</h1>
+
+    <a href="/cursos/new" class="btn-primary">+ Nuevo Curso</a>
+
+    <% if (cursos.length === 0) { %>
+        <p class="vacio">No hay cursos todavía. Ejecuta <code>npm run seed</code> o crea uno nuevo.</p>
+    <% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Fin</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cursos.forEach(c => { %>
+                <tr>
+                    <td>
+                        <%= c.title %>
+                        <small><%= c.category %></small>
+                    </td>
+                    <td><%= c.location %></td>
+                    <td><%= formatearFecha(c.startDate) %></td>
+                    <td><%= formatearFecha(c.endDate) %></td>
+                    <td>
+                        <div class="actions-cell">
+                            <a href="/cursos/<%= c.id %>" aria-label="Ver <%= c.title %>">SHOW</a>
+                            <a href="/cursos/<%= c.id %>/edit" aria-label="Editar <%= c.title %>">EDIT</a>
+                            <!-- Formulario POST con ?_method=DELETE (method-override) -->
+                            <form action="/cursos/<%= c.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este curso?')">
+                                <button aria-label="Eliminar <%= c.title %>">DELETE</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <% } %>
+
+<%- include("../partials/footer") %>

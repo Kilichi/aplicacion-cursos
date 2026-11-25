@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= tituloEJS %> | Academia</title>
+    <base href="/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menú de navegación común a todas las vistas -->
+    <header class="navbar">
+        <a href="/" class="logo">Academia</a>
+        <nav aria-label="Navegación principal">
+            <a href="/cursos" class="<%= rutaActual.startsWith('/cursos') ? 'activo' : '' %>">Cursos</a>
+            <a href="/usuarios" class="<%= rutaActual.startsWith('/usuarios') ? 'activo' : '' %>">Usuarios</a>
+            <a href="/matriculas" class="<%= rutaActual.startsWith('/matriculas') ? 'activo' : '' %>">Matrículas</a>
+        </nav>
+    </header>
