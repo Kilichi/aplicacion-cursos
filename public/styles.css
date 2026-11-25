@@ -1,0 +1,601 @@
+/* ==========================================
+   Variables y Estilos Globales
+   ========================================== */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --error-color: #ef4444;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   Tipografía Común
+   ========================================== */
+h1 {
+    font-size: 1.75rem;
+    color: var(--text-main);
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* ==========================================
+   Vista 1: Tablas de Listado (cursos, usuarios, matrículas)
+   ========================================== */
+table {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--card-bg);
+    border-collapse: collapse;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 14px 20px;
+    text-align: left;
+}
+
+th {
+    background-color: #f1f5f9;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.15s ease;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+td {
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+   Vista 2 & 3: Tarjetas de Detalle / Error / New
+   ========================================== */
+body > div {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px;
+    padding: 32px;
+    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+/* Cabecera interna de la tarjeta */
+body > div > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+body > div > div:first-child h1 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+body > div > div:first-child span {
+    background-color: #e0e7ff;
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 0.45rem;
+    font-weight: 600;
+}
+
+/* Campos de información dentro del detalle */
+body > div > div:not(:first-child) {
+    margin-bottom: 16px;
+}
+
+body > div > div > div:first-child {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+body > div > div > div:last-child {
+    font-size: 1rem;
+    background-color: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+/* ==========================================
+   Botones y Enlaces de Acción
+   ========================================== */
+a {
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Botón SHOW en la tabla */
+table button,
+table a {
+    background-color: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+table button:hover,
+table a:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Botón Principal Global (.btn-primary) */
+a.btn-primary {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+a.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Enlaces o botones de "Volver" / "Cancelar" (Ancho automático, no 100%) */
+body > div a.btn-cancel,
+body > div > a, 
+body > a {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    width: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+
+body > div a.btn-cancel:hover,
+body > div > a:hover, 
+body > a:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Específico para el botón Cancelar */
+body > div a.btn-cancel {
+    background-color: #64748b;
+}
+
+body > div a.btn-cancel:hover {
+    background-color: #475569;
+}
+
+/* Ajuste específico para la vista de Error si no está dentro de una tarjeta padre */
+body:has(h3) {
+    text-align: center;
+}
+
+/* ==========================================
+   Estilos para Formularios (new.ejs)
+   ========================================== */
+body > div form input,
+body > div div textarea,
+body > div form textarea {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    color: inherit;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: none;
+}
+
+body > div form input:focus,
+body > div form textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+body > div form textarea {
+    resize: none;
+}
+
+body > div form button {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.1s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+body > div form button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   Contenedor de Botones Gemelos (Guardar / Cancelar)
+   ========================================== */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* Hacemos que tanto el botón como el enlace ocupen exactamente el mismo espacio (50% cada uno) */
+.button-group button,
+.button-group a.btn-cancel {
+    flex: 1;
+    width: auto !important;
+    margin-top: 0 !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Forzamos que el botón de cancelar tenga el color gris y el de guardar el primario */
+.button-group a.btn-cancel {
+    background-color: #64748b;
+    color: white;
+    border: none;
+}
+
+.button-group a.btn-cancel:hover {
+    background-color: #475569;
+}
+
+/* ==========================================
+   Personalización de la Vista de Error
+   ========================================== */
+
+/* 1. Título de ERROR en rojo */
+body:has(h3) h1 {
+    color: var(--error-color);
+}
+
+/* 2. Mensaje (h3) en cursiva y con un tono sutil */
+body:has(h3) h3 {
+    font-style: italic;
+    color: var(--text-main);
+}
+
+/* 3. Botón de "Volver al Inicio" en rojo */
+body:has(h3) > a {
+    background-color: var(--error-color);
+    width: auto;
+    padding: 10px 20px;
+}
+
+body:has(h3) > a:hover {
+    background-color: #dc2626; /* Un rojo un poco más oscuro para el hover */
+}
+
+/* ==========================================
+   Alineación de Acciones en la Tabla (SHOW / EDIT / DELETE)
+   ========================================== */
+td .actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio uniforme entre los botones */
+}
+
+/* Hacemos que el formulario del delete no rompa el layout */
+td .actions-cell form {
+    margin: 0;
+    display: inline;
+}
+
+/* Unificamos estilos para los enlaces y botones de acción en la tabla */
+table td a,
+table td button {
+    background-color: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+table td a:hover,
+table td button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Opcional: Si quieres que el botón DELETE tenga un tono ligeramente rojizo para distinguirlo */
+td .actions-cell form button {
+    background-color: #e11d48; /* Rojo elegante */
+}
+
+td .actions-cell form button:hover {
+    background-color: #be123c; /* Rojo más oscuro en hover */
+}
+
+/* ==========================================
+   Botón EDIT específico en Amarillo/Ámbar
+   ========================================== */
+table td a[href*="/edit"] {
+    background-color: #d97706; /* Tono ámbar/amarillo elegante */
+    color: white;
+}
+
+table td a[href*="/edit"]:hover {
+    background-color: #b45309; /* Tonalidad más oscura al pasar el ratón */
+}
+
+/* ==========================================
+   Barra de navegación (partials/header.ejs)
+   ========================================== */
+body {
+    padding-top: 0;
+}
+
+header.navbar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header.navbar .logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+header.navbar nav {
+    display: flex;
+    gap: 8px;
+}
+
+header.navbar nav a {
+    color: var(--text-muted);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+header.navbar nav a:hover,
+header.navbar nav a:focus-visible {
+    background-color: #e0e7ff;
+    color: var(--primary);
+}
+
+/* Enlace de la sección en la que estamos */
+header.navbar nav a.activo {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* ==========================================
+   Página de inicio (index.ejs)
+   ========================================== */
+.subtitulo {
+    color: var(--text-muted);
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.tarjetas .tarjeta {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tarjetas .tarjeta:hover,
+.tarjetas .tarjeta:focus-visible {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.tarjetas .tarjeta strong {
+    font-size: 1.15rem;
+    color: var(--primary);
+}
+
+.tarjetas .tarjeta span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   Formularios: etiquetas, selects y mensajes de error
+   ========================================== */
+body > div form > div {
+    margin-bottom: 16px;
+}
+
+body > div form label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+body > div form select {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: inherit;
+    box-sizing: border-box;
+}
+
+body > div form select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Mensaje de error dentro de un formulario (DNI repetido, fechas incorrectas...) */
+.alerta-error {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+/* Etiquetas de estado (perfil de usuario, estado de matrícula) */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: #e0e7ff;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.badge.pendiente { background-color: #fef3c7; color: #92400e; }
+.badge.confirmada { background-color: #dcfce7; color: #166534; }
+.badge.cancelada { background-color: #fee2e2; color: #991b1b; }
+
+/* Texto secundario dentro de una celda (DNI, categoría...) */
+td small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Mensaje cuando una tabla no tiene registros */
+.vacio {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ==========================================
+   Pie de página
+   ========================================== */
+footer {
+    margin-top: auto;
+    padding-top: 40px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Tablas anchas en pantallas pequeñas */
+@media (max-width: 700px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    header.navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
