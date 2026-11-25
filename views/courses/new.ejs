@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+    <div>
+        <div>
+            <h1>Nuevo Curso</h1>
+            <span>Alta nueva</span>
+        </div>
+        <!-- Si el controlador devuelve un error de validación lo mostramos aquí -->
+        <% if (error) { %>
+            <p class="alerta-error" role="alert"><%= error %></p>
+        <% } %>
+        <form action="/cursos" method="POST">
+            <div>
+                <label for="title">Título</label>
+                <input type="text" id="title" name="title" value="<%= curso.title || '' %>" placeholder="Título del curso..." required>
+            </div>
+            <div>
+                <label for="category">Categoría</label>
+                <select id="category" name="category" required>
+                    <% for (let cat of categorias) { %>
+                        <option value="<%= cat %>" <%= curso.category === cat ? "selected" : "" %>><%= cat %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div>
+                <label for="description">Descripción</label>
+                <textarea id="description" name="description" placeholder="Descripción del curso..." rows="4" required><%= curso.description || '' %></textarea>
+            </div>
+            <div>
+                <label for="location">Ubicación</label>
+                <input type="text" id="location" name="location" value="<%= curso.location || '' %>" placeholder="Aula, ciudad u Online..." required>
+            </div>
+            <div>
+                <label for="startDate">Fecha de inicio</label>
+                <input type="date" id="startDate" name="startDate" value="<%= fechaInput(curso.startDate) %>" required>
+            </div>
+            <div>
+                <label for="endDate">Fecha de fin</label>
+                <input type="date" id="endDate" name="endDate" value="<%= fechaInput(curso.endDate) %>" required>
+            </div>
+
+            <!-- Contenedor para los dos botones alineados -->
+            <div class="button-group">
+                <button type="submit">Guardar</button>
+                <a href="/cursos" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+<%- include("../partials/footer") %>

@@ -12,6 +12,9 @@ const methodOverride = require("method-override") //npm i method-override (PATCH
 const mongodbConfig = require("./utils/mongodb.config")
 const formatos = require("./utils/formatos")
 
+//Rutas de cada módulo
+const courseRoutes = require("./routes/course.routes")
+
 //Configuración del motor de vistas EJS (SSR)
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs") //npm i ejs
@@ -45,6 +48,8 @@ app.get("/", (req, res) => {
     res.locals.tituloEJS = "Inicio"
     res.render("index.ejs")
 })
+//Propias del REST (MVC)
+app.use("/cursos", courseRoutes)
 
 //Rutas por defecto (cualquier ruta que no exista)
 app.use((req, res) => {
